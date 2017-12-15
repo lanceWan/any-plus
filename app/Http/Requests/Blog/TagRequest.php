@@ -24,13 +24,12 @@ class TagRequest extends FormRequest
      */
      public function rules()
     {
-        $rules['name'] = 'required';
         // 添加权限
         if (request()->isMethod('POST')) {
-            $rules['slug'] = 'required|unique:tags,slug';
+            $rules['name'] = 'required|unique:tags,name';
         }else{
             // 修改时 request()->method() 方法返回的是 PUT或PATCH
-            $rules['slug'] = [
+            $rules['name'] = [
                 'required',
                 Rule::unique('tags')->ignore(decodeId(request()->route('tag'))),
             ];

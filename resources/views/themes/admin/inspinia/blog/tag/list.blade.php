@@ -64,7 +64,6 @@
               <tr>
                   <td>{{$v->id}}</td>
                   <td>{{$v->name}}</td>
-                  <td>{{$v->slug}}</td>
                   <td>{{$v->created_at}}</td>
                   <td>{{$v->updated_at}}</td>
                   <td>{!! $presenter->getActionButtonAttribute($v->id) !!}</td>
@@ -72,7 +71,7 @@
               @endforeach
               @else
                 <tr>
-                  <td colspan="6" class="text-center">暂无数据</td>
+                  <td colspan="5" class="text-center">暂无数据</td>
                 </tr>
               @endif
             </tbody>
