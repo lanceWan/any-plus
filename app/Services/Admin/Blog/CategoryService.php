@@ -49,7 +49,7 @@ class CategoryService {
 	 */
 	private function sortCategorySetCache()
 	{
-		$categories = CategoryRepository::orderBy('sort', 'desc')->all();
+		$categories = CategoryRepository::where(['type' => config('admin.global.status.active', 1)])->orderBy('sort', 'desc')->get();
 		if ($categories->isNotEmpty()) {
 			$categoryList = $this->sortCategory($categories->toArray());
 			foreach ($categoryList as $key => &$v) {

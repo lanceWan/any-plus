@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('url')->default('')->comment('外部url，默认为空');
             $table->string('icon',30)->default('')->comment('分类图标');
             $table->tinyInteger('sort')->default(0)->comment('排序');
+            $table->tinyInteger('type')->default(1)->comment('类型：1-博客，2-学院');
             $table->timestamps();
         });
     }

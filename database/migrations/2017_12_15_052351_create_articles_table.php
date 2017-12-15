@@ -15,10 +15,11 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('video_id')->unsigned()->default(0)->comment('视频ID');
+            $table->integer('user_id')->unsigned()->default(0)->comment('用户ID');
             $table->string('title')->default('')->comment('标题');
-            $table->string('author')->default('')->comment('作者');
             $table->text('lead')->comment('摘要');
-            $table->string('banner')->default('')->comment('文章banner');
+            $table->string('banner', 500)->default('')->comment('文章banner');
             $table->text('content_html')->comment('文章内容-html格式');
             $table->text('content_mark')->comment('文章内容-markdown格式');
             $table->string('meta_title')->default('')->comment('SEO标题');

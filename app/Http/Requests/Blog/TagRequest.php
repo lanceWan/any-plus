@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Blog;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PermissionRequest extends FormRequest
+class TagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,17 @@ class PermissionRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+     public function rules()
     {
         $rules['name'] = 'required';
         // 添加权限
         if (request()->isMethod('POST')) {
-            $rules['slug'] = 'required|unique:permissions,slug';
+            $rules['slug'] = 'required|unique:tags,slug';
         }else{
             // 修改时 request()->method() 方法返回的是 PUT或PATCH
             $rules['slug'] = [
                 'required',
-                Rule::unique('permissions')->ignore(decodeId(request()->route('permission'))),
+                Rule::unique('tags')->ignore(decodeId(request()->route('tag'))),
             ];
         }
         return $rules;
@@ -50,8 +50,7 @@ class PermissionRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'  => '名称',
-            'slug'  => '权限',
+            'name'  => '标签名称',
         ];
     }
 }

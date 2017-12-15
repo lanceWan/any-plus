@@ -18,5 +18,8 @@ return [
 		'destroy_success' => '删除成功',
 		'destroy_error' => '删除失败',
 		'cache_clear' => '清除缓存成功！',
+	],
+	'status' => [
+		'active' => 1
 	]
 ];
