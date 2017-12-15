@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\Admin;
+namespace App\Services\Admin\System;
 
 use Facades\ {
 	App\Repositories\Eloquent\UserRepository,

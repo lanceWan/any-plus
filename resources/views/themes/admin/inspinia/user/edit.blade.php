@@ -3,7 +3,7 @@
 <link href="{{asset(getThemeAssets('iCheck/custom.css', true))}}" rel="stylesheet">
 @endsection
 @section('content')
-@inject('userPresenter','App\Repositories\Presenters\Admin\UserPresenter')
+@inject('userPresenter','App\Repositories\Presenters\Admin\System\UserPresenter')
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
     <h2>用户管理</h2>
@@ -129,7 +129,7 @@
     </div>
   </div>
 </div>
-@include(getThemeView('user.modal'))
+@include('layouts.partials.modal')
 @endsection
 @section('js')
 <script type="text/javascript" src="{{asset(getThemeAssets('iCheck/icheck.min.js', true))}}"></script>

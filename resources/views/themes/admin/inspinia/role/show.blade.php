@@ -1,4 +1,4 @@
-@inject('presenter','App\Repositories\Presenters\Admin\RolePresenter')
+@inject('presenter','App\Repositories\Presenters\Admin\System\RolePresenter')
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <h4 class="modal-title">查看角色信息</h4>

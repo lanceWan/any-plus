@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\ViewComposers;
 use Illuminate\View\View;
-use App\Services\Admin\MenuService;
+use App\Services\Admin\System\MenuService;
 class MenuComposer
 {
     

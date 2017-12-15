@@ -1,4 +1,4 @@
-@inject('menuPresenter','App\Repositories\Presenters\Admin\System\MenuPresenter')
+@inject('presenter','App\Repositories\Presenters\Admin\Blog\CategoryPresenter')
 <div class="ibox float-e-margins animated bounceIn formBox" id="showBox">
   <div class="ibox-title">
     <h5>查看菜单信息</h5>
@@ -13,56 +13,35 @@
       <div class="form-group">
         <label class="col-sm-3 control-label">名称</label>
         <div class="col-sm-9">
-          <p class="form-control-static">{{$menu->name}}</p>
+          <p class="form-control-static">{{$category->name}}</p>
         </div>
       </div>
       <div class="hr-line-dashed"></div>
       <div class="form-group">
         <label class="col-sm-3 control-label">层级</label>
         <div class="col-sm-9">
-          <p class="form-control-static">{{$menuPresenter->topMenuName($menus,$menu->pid)}}</p>
+          <p class="form-control-static">{{$presenter->topCategoryName($categories,$category->pid)}}</p>
         </div>
       </div>
       <div class="hr-line-dashed"></div>
       <div class="form-group">
         <label class="col-sm-3 control-label">图标</label>
         <div class="col-sm-9">
-          <p class="form-control-static">{{empty($menu->icon) ? '' : '<i class="'.$menu->icon.'"></i>'}}</p>
-        </div>
-      </div>
-      <div class="hr-line-dashed"></div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">权限</label>
-        <div class="col-sm-9">
-          <p class="form-control-static">{{$menu->slug}}</p>
+          <p class="form-control-static">{{empty($category->icon) ? '' : '<i class="'.$category->icon.'"></i>'}}</p>
         </div>
       </div>
       <div class="hr-line-dashed"></div>
       <div class="form-group">
         <label class="col-sm-3 control-label">连接地址</label>
         <div class="col-sm-9">
-          <p class="form-control-static">{{$menu->url}}</p>
-        </div>
-      </div>
-      <div class="hr-line-dashed"></div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">高亮地址</label>
-        <div class="col-sm-9">
-          <p class="form-control-static">{{$menu->active}}</p>
-        </div>
-      </div>
-      <div class="hr-line-dashed"></div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">描述</label>
-        <div class="col-sm-9">
-          <p class="form-control-static">{{$menu->description}}</p>
+          <p class="form-control-static">{{$category->url}}</p>
         </div>
       </div>
       <div class="hr-line-dashed"></div>
       <div class="form-group">
         <label class="col-sm-3 control-label">排序</label>
         <div class="col-sm-9">
-          <p class="form-control-static">{{$menu->sort}}</p>
+          <p class="form-control-static">{{$category->sort}}</p>
         </div>
       </div>
       <div class="hr-line-dashed"></div>

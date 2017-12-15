@@ -40,13 +40,9 @@ return [
     'connections' => [
 
         'main' => [
-            'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
-        ],
-
-        'alternative' => [
-            'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
+            'salt' => 'plus',
+            'length' => '6',
+            'alphabet' => 'KHQSsYeqpa92z4tmrfWRJnygLAIhxkOGoB0vP3761EDw8MuTcbNjZVdiXUF5lC',
         ],
 
     ],

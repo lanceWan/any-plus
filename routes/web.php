@@ -29,16 +29,11 @@ Route::prefix('admin')
 
 		$router->middleware(['auth.admin', 'check.permission'])->group(function ($router)
 		{
-			$router->get('/', 'HomeController@index');
+			// 系统管理
+			$router->namespace('System')->group(base_path('routes/admin/system.php'));
+			// 博客
+			$router->namespace('Blog')->group(base_path('routes/admin/blog.php'));
 			
-			$router->resource('permission','PermissionController');
-			
-			$router->resource('role','RoleController');
-			
-			$router->resource('user','UserController');
-			
-			$router->get('menu/clear','MenuController@cacheClear');
-			$router->resource('menu','MenuController');
 		});
 
 	});

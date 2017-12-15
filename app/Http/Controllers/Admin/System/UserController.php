@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
 
-use App\Services\Admin\UserService;
 use App\Http\Requests\Admin\UserRequest;
+use App\Services\Admin\System\UserService;
 
 class UserController extends Controller
 {

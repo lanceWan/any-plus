@@ -5,8 +5,10 @@ return [
 	// 默认主题
 	'theme' => 'inspinia',
 	'cache' => [
-		'menuList' => 'menuList'
+		'menuList' => 'menuList',
+		'categoryList' => 'categoryList',
 	],
+	'encrypt' => true,
 	'info' => [
 		'create_success' => '创建成功',
 		'create_error' => '创建失败',

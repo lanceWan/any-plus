@@ -1,4 +1,4 @@
-@inject('menuPresenter','App\Repositories\Presenters\Admin\MenuPresenter')
+@inject('menuPresenter','App\Repositories\Presenters\Admin\System\MenuPresenter')
 <div class="ibox float-e-margins animated bounceIn formBox" id="createBox">
   <div class="ibox-title">
     <h5>创建菜单</h5>

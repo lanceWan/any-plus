@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
 
-use App\Services\Admin\PermissionService;
-use App\Http\Requests\Admin\PermissionRequest;
-class PermissionController extends Controller
+use App\Http\Requests\Admin\MenuRequest;
+use App\Services\Admin\System\MenuService;
+
+class MenuController extends Controller
 {
     protected $service;
 
-    public function __construct(PermissionService $service)
+    public function __construct(MenuService $service)
     {
         $this->service = $service;
     }
@@ -22,8 +23,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = $this->service->index();
-        return view(getThemeView('permission.list'))->with(compact('permissions'));
+        $menus = $this->service->getMenuList();
+        return view(getThemeView('menu.list'))->with(compact('menus'));
     }
 
     /**
@@ -33,7 +34,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view(getThemeView('permission.create'));
+        $result = $this->service->create();
+        return view(getThemeView('menu.create'))->with($result);
     }
 
     /**
@@ -42,10 +44,10 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PermissionRequest $request)
+    public function store(MenuRequest $request)
     {
-        $this->service->store($request->all());
-        return redirect()->route('permission.index');
+        $result = $this->service->store($request->all());
+        return response()->json($result);
     }
 
     /**
@@ -56,7 +58,8 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        $result = $this->service->show($id);
+        return view(getThemeView('menu.show'))->with($result);
     }
 
     /**
@@ -68,7 +71,7 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $result = $this->service->edit($id);
-        return view(getThemeView('permission.edit'))->with($result);
+        return view(getThemeView('menu.edit'))->with($result);
     }
 
     /**
@@ -78,10 +81,10 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PermissionRequest $request, $id)
+    public function update(MenuRequest $request, $id)
     {
-        $this->service->update($request->all(), $id);
-        return redirect()->route('permission.index');
+        $result = $this->service->update($request->all(), $id);
+        return response()->json($result);
     }
 
     /**
@@ -93,6 +96,13 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         $this->service->destroy($id);
-        return redirect()->route('permission.index');
+        return redirect()->route('menu.index');
+    }
+
+
+    public function cacheClear()
+    {
+        $this->service->cacheClear();
+        return redirect()->route('menu.index');
     }
 }

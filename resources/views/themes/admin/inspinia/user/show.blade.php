@@ -3,7 +3,7 @@
 <link href="{{asset(getThemeAssets('iCheck/custom.css', true))}}" rel="stylesheet">
 @endsection
 @section('content')
-@inject('presenter','App\Repositories\Presenters\Admin\UserPresenter')
+@inject('presenter','App\Repositories\Presenters\Admin\System\UserPresenter')
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
     <h2>用户管理</h2>

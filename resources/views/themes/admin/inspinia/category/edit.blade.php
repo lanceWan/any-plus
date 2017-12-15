@@ -1,4 +1,4 @@
-@inject('menuPresenter','App\Repositories\Presenters\Admin\System\MenuPresenter')
+@inject('menuPresenter','App\Repositories\Presenters\Admin\Blog\CategoryPresenter')
 <div class="ibox float-e-margins animated bounceIn formBox" id="createBox">
   <div class="ibox-title">
     <h5>编辑菜单信息</h5>
@@ -9,13 +9,13 @@
     </div>
   </div>
   <div class="ibox-content">
-    <form method="post" action="{{route('menu.update', [encodeId($menu->id)])}}" class="form-horizontal" id="editForm">
+    <form method="post" action="{{route('category.update', [encodeId($category->id)])}}" class="form-horizontal" id="editForm">
       {!!csrf_field()!!}
       {{method_field('PUT')}}
       <div class="form-group">
         <label class="col-sm-2 control-label">名称</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" value="{{$menu->name}}" name="name">
+          <input type="text" class="form-control" value="{{$category->name}}" name="name">
         </div>
       </div>
       <div class="hr-line-dashed"></div>
@@ -23,7 +23,7 @@
         <label class="col-sm-2 control-label">层级</label>
         <div class="col-sm-10">
           <select data-live-search="true" class="selectpicker form-control" name="pid">
-            {!!$menuPresenter->topMenuList($menus, $menu->pid)!!}
+            {!!$menuPresenter->topCategoryList($categories, $category->pid)!!}
           </select>
         </div>
       </div>
@@ -31,38 +31,15 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">图标</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control"  value="{{$menu->icon}}" name="icon">
+          <input type="text" class="form-control"  value="{{$category->icon}}" name="icon">
           <span class="help-block m-b-none">更多图标请查看 <a href="http://fontawesome.io/icons/" target="_black">Font Awesome</a></span>
-        </div>
-      </div>
-      <div class="hr-line-dashed"></div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">权限</label>
-        <div class="col-sm-10">
-          <select data-placeholder="权限" data-live-search="true" class="selectpicker form-control" name="slug">
-            {!!$menuPresenter->permissionList($permissions, $menu->slug)!!}
-          </select>
         </div>
       </div>
       <div class="hr-line-dashed"></div>
       <div class="form-group">
         <label class="col-sm-2 control-label">连接地址</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" value="{{$menu->url}}" name="url">
-        </div>
-      </div>
-      <div class="hr-line-dashed"></div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">高亮地址</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" value="{{$menu->active}}" name="active">
-        </div>
-      </div>
-      <div class="hr-line-dashed"></div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">描述</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" value="{{$menu->description}}" name="description">
+          <input type="text" class="form-control" value="{{$category->url}}" name="url">
         </div>
       </div>
       <div class="hr-line-dashed"></div>
@@ -88,6 +65,6 @@
       type: "single",
       min: 0,
       max: 100,
-      from: "{{$menu->sort}}"
+      from: "{{$category->sort}}"
   });
 </script>

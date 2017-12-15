@@ -1,4 +1,4 @@
-@inject('menuPresenter','App\Repositories\Presenters\Admin\MenuPresenter')
+@inject('menuPresenter','App\Repositories\Presenters\Admin\System\MenuPresenter')
 <nav class="navbar-default navbar-static-side" role="navigation">
   <div class="sidebar-collapse">
     <ul class="nav metismenu" id="side-menu">

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 
-use App\Services\Admin\MenuService;
-use App\Http\Requests\Admin\MenuRequest;
+use App\Http\Requests\Blog\CategoryRequest;
+use App\Services\Admin\Blog\CategoryService;
 
-class MenuController extends Controller
+class CategoryController extends Controller
 {
     protected $service;
 
-    public function __construct(MenuService $service)
+    public function __construct(CategoryService $service)
     {
         $this->service = $service;
     }
@@ -23,8 +23,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = $this->service->getMenuList();
-        return view(getThemeView('menu.list'))->with(compact('menus'));
+        $categories = $this->service->getCategoryList();
+        return view(getThemeView('category.list'))->with(compact('categories'));
     }
 
     /**
@@ -35,7 +35,7 @@ class MenuController extends Controller
     public function create()
     {
         $result = $this->service->create();
-        return view(getThemeView('menu.create'))->with($result);
+        return view(getThemeView('category.create'))->with($result);
     }
 
     /**
@@ -44,7 +44,7 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MenuRequest $request)
+    public function store(CategoryRequest $request)
     {
         $result = $this->service->store($request->all());
         return response()->json($result);
@@ -59,7 +59,7 @@ class MenuController extends Controller
     public function show($id)
     {
         $result = $this->service->show($id);
-        return view(getThemeView('menu.show'))->with($result);
+        return view(getThemeView('category.show'))->with($result);
     }
 
     /**
@@ -71,7 +71,7 @@ class MenuController extends Controller
     public function edit($id)
     {
         $result = $this->service->edit($id);
-        return view(getThemeView('menu.edit'))->with($result);
+        return view(getThemeView('category.edit'))->with($result);
     }
 
     /**
@@ -81,7 +81,7 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MenuRequest $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $result = $this->service->update($request->all(), $id);
         return response()->json($result);
@@ -96,13 +96,13 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $this->service->destroy($id);
-        return redirect()->route('menu.index');
+        return redirect()->route('category.index');
     }
 
 
     public function cacheClear()
     {
         $this->service->cacheClear();
-        return redirect()->route('menu.index');
+        return redirect()->route('category.index');
     }
 }
