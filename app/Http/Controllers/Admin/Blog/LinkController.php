@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Blog;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+use App\Http\Requests\Blog\LinkRequest;
+use App\Services\Admin\Blog\LinkService;
 
 class LinkController extends Controller
 {
+    protected $service;
+
+    public function __construct(LinkService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,8 @@ class LinkController extends Controller
      */
     public function index()
     {
-        //
+        $links = $this->service->index();
+        return view(getThemeView('blog.link.list'))->with(compact('links'));
     }
 
     /**
@@ -24,7 +34,7 @@ class LinkController extends Controller
      */
     public function create()
     {
-        //
+        return view(getThemeView('blog.link.create'));
     }
 
     /**
@@ -33,20 +43,10 @@ class LinkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LinkRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $this->service->store($request->all());
+        return redirect()->route('link.index');
     }
 
     /**
@@ -57,7 +57,8 @@ class LinkController extends Controller
      */
     public function edit($id)
     {
-        //
+        $result = $this->service->edit($id);
+        return view(getThemeView('blog.link.edit'))->with($result);
     }
 
     /**
@@ -67,9 +68,10 @@ class LinkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LinkRequest $request, $id)
     {
-        //
+        $this->service->update($request->all(), $id);
+        return redirect()->route('link.index');
     }
 
     /**
@@ -80,6 +82,7 @@ class LinkController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->service->destroy($id);
+        return redirect()->route('link.index');
     }
 }

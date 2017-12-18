@@ -13,7 +13,7 @@ class LinkRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,27 @@ class LinkRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'url' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required'  => ':attribute 不能为空。',
+        ];
+    }
+    
+    
+    public function attributes()
+    {
+        return [
+            'name'  => '网站名称',
+            'url'  => '网站地址',
         ];
     }
 }
