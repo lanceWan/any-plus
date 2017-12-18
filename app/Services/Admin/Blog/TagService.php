@@ -33,8 +33,8 @@ class TagService {
 	public function edit($id)
 	{
 		try {
-			$permission = TagRepository::find(decodeId($id));
-			return compact('permission');
+			$tag = TagRepository::find(decodeId($id));
+			return compact('tag');
 		} catch (Exception $e) {
 			flash(config('admin.global.info.find_error'), 'danger');
 		}
@@ -46,6 +46,7 @@ class TagService {
 			$result = TagRepository::update($attributes, decodeId($id));
 			flash_info($result,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
 		} catch (Exception $e) {
+			dd($e);
 			flash(config('admin.global.info.edit_error'), 'danger');
 		}
 	}
