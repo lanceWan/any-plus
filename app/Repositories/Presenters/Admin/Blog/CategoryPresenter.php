@@ -31,7 +31,7 @@ class CategoryPresenter
 		$labelInfo = $menu['pid'] == 0 ?  'label-info':'label-warning';
 		return <<<Eof
 				<li class="dd-item dd3-item" data-id="{$menu['id']}">
-                    <div class="dd-handle dd3-handle">Drag</div>
+                    <div class="dd-handle dd3-handle"></div>
                     <div class="dd3-content"><span class="label {$labelInfo}">{$icon}</span> {$menu['name']} {$this->getActionButtons($menu['id'])}</div>
                 </li>
 Eof;
@@ -57,7 +57,7 @@ Eof;
 
 		$html = <<<Eof
 		<li class="dd-item dd3-item" data-id="{$id}">
-            <div class="dd-handle dd3-handle">Drag</div>
+            <div class="dd-handle dd3-handle"></div>
             <div class="dd3-content">
             	<span class="label label-info">{$icon}</span> {$name} {$this->getActionButtons($id)}
             </div>

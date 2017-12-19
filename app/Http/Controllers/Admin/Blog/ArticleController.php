@@ -33,7 +33,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $result = $this->service->create();
+        return view(getThemeView('blog.article.create'))->with($result);
     }
 
     /**
