@@ -4,18 +4,17 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\Blog\CategoryRequest;
-use App\Services\Admin\Blog\CategoryService;
+use App\Http\Requests\Blog\ArticleRequest;
+use App\Services\Admin\Blog\ArticleService;
 
-class CategoryController extends Controller
+class ArticleController extends Controller
 {
     protected $service;
 
-    public function __construct(CategoryService $service)
+    public function __construct(ArticleService $service)
     {
         $this->service = $service;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +22,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->service->getCategoryList();
-        return view(getThemeView('blog.category.list'))->with(compact('categories'));
+        $articles = $this->service->index();
+        return view(getThemeView('blog.article.list'))->with(compact('articles'));
     }
 
     /**
@@ -34,8 +33,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $result = $this->service->create();
-        return view(getThemeView('blog.category.create'))->with($result);
+        //
     }
 
     /**
@@ -44,10 +42,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(ArticleRequest $request)
     {
-        $result = $this->service->store($request->all());
-        return response()->json($result);
+        //
     }
 
     /**
@@ -58,8 +55,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $result = $this->service->show($id);
-        return view(getThemeView('blog.category.show'))->with($result);
+        //
     }
 
     /**
@@ -70,8 +66,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $result = $this->service->edit($id);
-        return view(getThemeView('blog.category.edit'))->with($result);
+        //
     }
 
     /**
@@ -81,10 +76,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(ArticleRequest $request, $id)
     {
-        $result = $this->service->update($request->all(), $id);
-        return response()->json($result);
+        //
     }
 
     /**
@@ -95,14 +89,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->service->destroy($id);
-        return redirect()->route('category.index');
-    }
-
-
-    public function cacheClear()
-    {
-        $this->service->cacheClear();
-        return redirect()->route('category.index');
+        //
     }
 }

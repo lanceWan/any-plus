@@ -62,7 +62,7 @@
               @if($tags->isNotEmpty())
               @foreach($tags as $key => $v)
               <tr>
-                  <td>{{$v->id}}</td>
+                  <td>{{encodeId($v->id)}}</td>
                   <td>{{$v->name}}</td>
                   <td>{{$v->created_at}}</td>
                   <td>{{$v->updated_at}}</td>
@@ -77,9 +77,7 @@
             </tbody>
           </table>
           <div class="row">
-            @if($tags->total())
-            <div class="col-sm-4 m-t-md text-left">显示第 {{($tags->currentPage() - 1) * $tags->perPage() }} 至 {{ $tags->total() > $tags->perPage() ?  $tags->currentPage() * $tags->perPage() : $tags->total() }} 项结果，共 {{$tags->total()}} 项</div>
-            @endif
+            {!! $presenter->paginationInfo($tags) !!}
             <div class="col-sm-4 col-md-offset-4 m-b-xs text-right">
               {{$tags->links()}}
             </div>

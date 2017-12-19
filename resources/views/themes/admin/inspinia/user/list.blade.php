@@ -63,7 +63,7 @@
               @if($users->isNotEmpty())
               @foreach($users as $key => $v)
               <tr>
-                  <td>{{$v->id}}</td>
+                  <td>{{encodeId($v->id)}}</td>
                   <td>{{$v->name}}</td>
                   <td>{{$v->username}}</td>
                   <td>{{$v->created_at}}</td>
@@ -79,9 +79,7 @@
             </tbody>
           </table>
           <div class="row">
-            @if($users->total())
-            <div class="col-sm-4 m-t-md text-left">显示第 {{($users->currentPage() - 1) * $users->perPage() }} 至 {{ $users->total() > $users->perPage() ?  $users->currentPage() * $users->perPage() : $users->total() }} 项结果，共 {{$users->total()}} 项</div>
-            @endif
+            {!! $presenter->paginationInfo($users) !!}
             <div class="col-sm-4 col-md-offset-4 m-b-xs text-right">
               {{$users->links()}}
             </div>

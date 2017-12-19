@@ -63,7 +63,7 @@
               @if($permissions->isNotEmpty())
               @foreach($permissions as $key => $v)
               <tr>
-                  <td>{{$v->id}}</td>
+                  <td>{{encodeId($v->id)}}</td>
                   <td>{{$v->name}}</td>
                   <td>{{$v->slug}}</td>
                   <td>{{$v->created_at}}</td>
@@ -79,9 +79,7 @@
             </tbody>
           </table>
           <div class="row">
-            @if($permissions->total())
-            <div class="col-sm-4 m-t-md text-left">显示第 {{($permissions->currentPage() - 1) * $permissions->perPage() }} 至 {{ $permissions->total() > $permissions->perPage() ?  $permissions->currentPage() * $permissions->perPage() : $permissions->total() }} 项结果，共 {{$permissions->total()}} 项</div>
-            @endif
+            {!! $presenter->paginationInfo($permissions) !!}
             <div class="col-sm-4 col-md-offset-4 m-b-xs text-right">
               {{$permissions->links()}}
             </div>

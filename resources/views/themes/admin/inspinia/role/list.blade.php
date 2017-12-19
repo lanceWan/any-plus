@@ -63,7 +63,7 @@
               @if($roles->isNotEmpty())
               @foreach($roles as $key => $v)
               <tr>
-                  <td>{{$v->id}}</td>
+                  <td>{{encodeId($v->id)}}</td>
                   <td>{{$v->name}}</td>
                   <td>{{$v->slug}}</td>
                   <td>{{$v->created_at}}</td>
@@ -79,9 +79,7 @@
             </tbody>
           </table>
           <div class="row">
-            @if($roles->total())
-            <div class="col-sm-4 m-t-md text-left">显示第 {{($roles->currentPage() - 1) * $roles->perPage() }} 至 {{ $roles->total() > $roles->perPage() ?  $roles->currentPage() * $roles->perPage() : $roles->total() }} 项结果，共 {{$roles->total()}} 项</div>
-            @endif
+            {!! $presenter->paginationInfo($roles) !!}
             <div class="col-sm-4 col-md-offset-4 m-b-xs text-right">
               {{$roles->links()}}
             </div>

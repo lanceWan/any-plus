@@ -92,5 +92,25 @@ Eof;
 		return $this->getEditActionButton($id)
 				.$this->getDestroyActionButton($id);
 	}
+
+	/**
+	 * 分页显示信息
+	 * @author 晚黎
+	 * @date   2017-12-19
+	 * @param  [type]     $paginate [description]
+	 * @return [type]               [description]
+	 */
+	public function paginationInfo($paginate)
+	{
+        if ($paginate->total()) {
+        	$first = ($paginate->currentPage() - 1) * $paginate->perPage();
+        	$end = $paginate->total() > $paginate->perPage() ?  $paginate->currentPage() * $paginate->perPage() : $paginate->total();
+        	return <<<Eof
+			<div class="col-sm-4 m-t-md text-left">
+				显示第 {$first} 至 {$end} 项结果，共 {$paginate->total()} 项
+			</div>
+Eof;
+        }
+	}
     
 }
