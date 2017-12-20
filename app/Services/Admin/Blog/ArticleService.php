@@ -33,4 +33,77 @@ class ArticleService {
 			return null;
 		}
 	}
+
+	public function store($request)
+	{
+		try {
+			$article = $this->syncArticle($request);
+			flash_info($article,config('admin.global.info.create_success'), config('admin.global.info.create_error'));
+		} catch (Exception $e) {
+			flash(config('admin.global.info.create_error'), 'danger');
+		}
+	}
+
+	public function createCategory()
+	{
+		try {
+			return CategoryRepository::findWhere(['pid' => 0], ['id', 'name'])->toArray();
+		} catch (Exception $e) {
+			return null;
+		}
+	}
+
+	public function edit($id)
+	{
+		try {
+			$article = ArticleRepository::with(['tag', 'category'])->find(decodeId($id));
+			$categories = CategoryRepository::all(['id', 'name'])->toArray();
+			$tags = TagRepository::all(['id', 'name'])->toArray();
+			return compact('article', 'categories', 'tags');
+		} catch (Exception $e) {
+			flash(config('admin.global.info.find_error'), 'danger');
+		}
+	}
+
+	public function update($request, $id)
+	{
+		try {
+			$article = $this->syncArticle($request, $id);
+			flash_info($article,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
+		} catch (Exception $e) {
+			flash(config('admin.global.info.edit_error'), 'danger');
+		}
+	}
+
+	public function syncArticle($request, $id = '')
+	{
+		$attributes = $request->all();
+		// 文章banner上传
+		if ($attributes['edit_banner']) {
+			$attributes['banner'] = $attributes['edit_banner'];
+		}
+
+		if ($request->hasFile('banner') && empty($attributes['edit_banner'])) {
+			$attributes['banner'] = env('UPYUN_DOMAIN').'/'. $request->file('banner')->store('blog', 'upyun');
+		}
+
+		$attributes['lead'] = lead($attributes['editor-html-code'], 300);
+		$attributes['content_html'] = $attributes['editor-html-code'];
+		if ($id) {
+			$article = ArticleRepository::update($attributes, decodeId($id));
+		}else{
+			$article = ArticleRepository::create($attributes);
+		}
+
+		if ($article) {
+			// 添加标签关系
+			$tags = isset($attributes['tags']) ? $attributes['tags'] : [];
+			$article->tag()->sync($attributes['tags']);
+			
+			// 添加分类关系
+			$categories = isset($attributes['category_id']) ? $attributes['category_id'] : [];
+			$article->category()->sync($categories);
+		}
+		return $article;
+	}
 }

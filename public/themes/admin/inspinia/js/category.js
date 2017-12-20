@@ -72,7 +72,7 @@ var MenuList = function() {
       }).always(function () {
         l.ladda('stop');
         _item.removeAttr('disabled');
-      });;
+      });
     });
     /**
      * 修改菜单表单

@@ -46,7 +46,10 @@ class TagController extends Controller
      */
     public function store(TagRequest $request)
     {
-        $this->service->store($request->all());
+        $result = $this->service->store($request->all());
+        if ($request->ajax()) {
+            return response()->json($result);
+        }
         return redirect()->route('tag.index');
     }
 

@@ -24,8 +24,22 @@ class TagService {
 	{
 		try {
 			$result = TagRepository::create($attributes);
+
+			if (request()->ajax()) {
+				return [
+	                'message' => config('admin.global.info.create_success'),
+	                'data' => $result,
+	            ];
+			}
+
 			flash_info($result,config('admin.global.info.create_success'), config('admin.global.info.create_error'));
 		} catch (Exception $e) {
+			if (request()->ajax()) {
+				return [
+	                'message' => config('admin.global.info.create_error'),
+	                'data' => [],
+	            ];
+			}
 			flash(config('admin.global.info.create_error'), 'danger');
 		}
 	}
@@ -46,7 +60,6 @@ class TagService {
 			$result = TagRepository::update($attributes, decodeId($id));
 			flash_info($result,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
 		} catch (Exception $e) {
-			dd($e);
 			flash(config('admin.global.info.edit_error'), 'danger');
 		}
 	}

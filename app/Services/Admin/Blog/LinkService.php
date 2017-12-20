@@ -46,7 +46,6 @@ class LinkService {
 			$result = LinkRepository::update($attributes, decodeId($id));
 			flash_info($result,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
 		} catch (Exception $e) {
-			dd($e);
 			flash(config('admin.global.info.edit_error'), 'danger');
 		}
 	}

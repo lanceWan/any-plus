@@ -45,7 +45,8 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        //
+        $this->service->store($request);
+        return redirect()->route('article.index');
     }
 
     /**
@@ -67,7 +68,11 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $result = $this->service->edit($id);
+        if (!$result) {
+            return redirect()->route('article.index');
+        }
+        return view(getThemeView('blog.article.edit'))->with($result);
     }
 
     /**
@@ -79,7 +84,8 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, $id)
     {
-        //
+        $this->service->update($request, $id);
+        return redirect()->route('article.index');
     }
 
     /**
@@ -91,5 +97,16 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createCategory()
+    {
+        $categories = $this->service->createCategory();
+        return view(getThemeView('blog.article.category'))->with(compact('categories'));
+    }
+
+    public function createTag()
+    {
+        return view(getThemeView('blog.article.tag'));
     }
 }

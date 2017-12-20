@@ -23,7 +23,7 @@ class ArticlePresenter {
 		if ($categories) {
 			foreach ($categories as $v) {
 				$html .= <<<Eof
-				<option value="{$v['id']}" {$this->checkSelected($v['id'],$articleCagegories,'cid')}>{$v['name']}</option>
+				<option value="{$v['id']}" {$this->checkSelected($v['id'],$articleCagegories,'category_id')}>{$v['name']}</option>
 Eof;
 			}
 		}

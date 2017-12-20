@@ -127,7 +127,7 @@ Eof;
 		$html = '<option value="0">顶级分类</option>';
 		if ($menus) {
 			foreach ($menus as $v) {
-				if ($v['pid']) {
+				if (isset($v['pid']) && $v['pid']) {
 					continue;
 				}
 				$html .= '<option value="'.$v['id'].'" '.$this->checkMenu($v['id'],$pid).'>'.$v['name'].'</option>';

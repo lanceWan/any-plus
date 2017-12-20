@@ -23,7 +23,7 @@
             <a href="{{route('article.index')}}">文章列表</a>
         </li>
         <li class="active">
-            <strong>创建文章</strong>
+            <strong>编辑文章</strong>
         </li>
     </ol>
   </div>
@@ -35,19 +35,20 @@
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
-    <form method="post" action="{{route('article.store')}}" class="form-horizontal" enctype="multipart/form-data">
+    <form method="post" action="{{route('article.update', [encodeId($article->id)])}}" class="form-horizontal" enctype="multipart/form-data">
       {{csrf_field()}}
+      {{method_field('PUT')}}
       <div class="col-lg-8 col-md-12">
         <div class="ibox float-e-margins">
           <div class="ibox-title">
-            <h5><i class="fa fa-plus"></i> 创建文章</h5>
+            <h5><i class="fa fa-plus"></i> 编辑文章</h5>
           </div>
           <div class="ibox-content">
             @include('flash::message')
               <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                 <label class="col-sm-2 control-label">标题</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="title" value="{{old('title')}}" placeholder="名称"> 
+                  <input type="text" class="form-control" name="title" value="{{old('title', $article->title)}}" placeholder="名称"> 
                   @if ($errors->has('title'))
                   <span class="help-block m-b-none text-danger">{{ $errors->first('title') }}</span>
                   @endif
@@ -58,8 +59,8 @@
                 <label class="col-sm-2 control-label">分类</label>
                 <div class="col-sm-10">
                   <div class="input-group">
-                    <select data-placeholder="请选择文章分类" class="selectpicker form-control category_id" name="category_id[]" multiple="multiple" data-live-search="true">
-                      {!!$presenter->categoryList($categories)!!}
+                    <select title="请选择文章分类" class="selectpicker form-control category_id" name="category_id[]" multiple="multiple" data-live-search="true">
+                      {!!$presenter->categoryList($categories, $article->category->all())!!}
                     </select>
                     <span class="input-group-btn"> <a href="{{ url('admin/article/category') }}" class="btn btn-primary tooltips" data-toggle="modal" data-target="#myModal" data-original-title="创建分类"  data-placement="top"><i class="fa fa-plus"></i></a> </span>
                   </div>
@@ -68,11 +69,10 @@
                   @endif
                 </div>
               </div>
-              
               <div class="hr-line-dashed"></div>
               <div class="form-group{{ $errors->has('content_mark') ? ' has-error' : '' }}">
                 <div class="col-sm-12">
-                  <div id="editor"><textarea style="display: none;" name="content_mark">{!!old('content_mark')!!}</textarea></div>
+                  <div id="editor"><textarea style="display: none;" name="content_mark">{!!old('content_mark', $article->content_mark)!!}</textarea></div>
                   @if ($errors->has('content_mark'))
                   <span class="help-block m-b-none text-danger">{{ $errors->first('content_mark') }}</span>
                   @endif
@@ -91,7 +91,7 @@
                 <div class="col-sm-12">
                   <div class="input-group">
                     <select title="请选择标签" class="selectpicker form-control tagsSelect" name="tags[]" multiple="multiple" data-selected-text-format="count > 4" data-live-search="true">
-                      {!!$presenter->tagList($tags)!!}
+                      {!!$presenter->tagList($tags, $article->tag->all())!!}
                     </select>
                     <span class="input-group-btn"> <a href="{{ url('admin/article/tag') }}" class="btn btn-primary tooltips" data-toggle="modal" data-target="#myModal" data-original-title="创建标签"  data-placement="top"><i class="fa fa-plus"></i></a> </span>
                   </div>
@@ -111,7 +111,7 @@
                 <div class="col-sm-12">
                   <div class="fileinput fileinput-new" data-provides="fileinput">
                     <div class="fileinput-new thumbnail">
-                      <img src="{{asset(getThemeAssets('img/no-image.png'))}}">
+                      <img src="{{ $article->banner or asset(getThemeAssets('img/no-image.png'))}}">
                     </div>
                     <div class="fileinput-preview fileinput-exists thumbnail"></div>
                     <div>
@@ -136,6 +136,7 @@
                 <select class="selectpicker form-control" name="status" >
                   <option value="1">发布</option>
                   <option value="2">草稿</option>
+                  <option value="3">下线</option>
                 </select>
                 @if ($errors->has('status'))
                 <span class="help-block m-b-none text-danger">{{ $errors->first('status') }}</span>

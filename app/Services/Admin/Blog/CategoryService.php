@@ -49,7 +49,7 @@ class CategoryService {
 	 */
 	private function sortCategorySetCache()
 	{
-		$categories = CategoryRepository::where(['type' => config('admin.global.status.active', 1)])->orderBy('sort', 'desc')->get();
+		$categories = CategoryRepository::orderBy('sort', 'desc')->findWhere(['type' => config('admin.global.status.active', 1)]);
 		if ($categories->isNotEmpty()) {
 			$categoryList = $this->sortCategory($categories->toArray());
 			foreach ($categoryList as $key => &$v) {
@@ -87,12 +87,12 @@ class CategoryService {
 				$this->sortCategorySetCache();
 			}
 			return [
-				'status' => $result,
+				'data' => $result,
 				'message' => $result ? config('admin.global.info.create_success'):config('admin.global.info.create_error'),
 			];
 		} catch (Exception $e) {
 			return [
-				'status' => false,
+				'data' => false,
 				'message' => config('admin.global.info.create_error'),
 			];
 		}
