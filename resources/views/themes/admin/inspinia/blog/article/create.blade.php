@@ -3,12 +3,7 @@
 <link href="{{asset(getThemeAssets('editor/css/editormd.min.css', true))}}" rel="stylesheet" type="text/css" />
 <link href="{{asset(getThemeAssets('layui/css/layui.css', true))}}" rel="stylesheet">
 <link href="{{asset(getThemeAssets('bootstrap-select/bootstrap-select.min.css', true))}}" rel="stylesheet">
-<link href="{{asset(getThemeAssets('bootstrap-tagsinput/bootstrap-tagsinput.css', true))}}" rel="stylesheet">
 <link href="{{asset(getThemeAssets('jasny/jasny-bootstrap.min.css', true))}}" rel="stylesheet">
-<link href="{{asset(getThemeAssets('iCheck/custom.css', true))}}" rel="stylesheet">
-<link href="{{asset(getThemeAssets('ionRangeSlider/ion.rangeSlider.css', true))}}" rel="stylesheet">
-<link href="{{asset(getThemeAssets('ionRangeSlider/ion.rangeSlider.skinFlat.css', true))}}" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{{asset(getThemeAssets('ladda/ladda-themeless.min.css', true))}}">
 @endsection
 @inject('presenter', 'App\Repositories\Presenters\Admin\Blog\ArticlePresenter')
 @section('content')
@@ -190,13 +185,7 @@
 @section('js')
 <script type="text/javascript" src="{{asset(getThemeAssets('editor/editormd.min.js', true))}}"></script>
 <script type="text/javascript" src="{{asset(getThemeAssets('bootstrap-select/bootstrap-select.min.js', true))}}"></script>
-<script type="text/javascript" src="{{asset(getThemeAssets('bootstrap-tagsinput/bootstrap-tagsinput.js', true))}}"></script>
 <script type="text/javascript" src="{{asset(getThemeAssets('jasny/jasny-bootstrap.min.js', true))}}"></script>
 <script type="text/javascript" src="{{asset(getThemeAssets('layui/layui.js', true))}}"></script>
-<script type="text/javascript" src="{{asset(getThemeAssets('iCheck/icheck.min.js', true))}}"></script>
-<script src="{{asset(getThemeAssets('ionRangeSlider/ion.rangeSlider.min.js', true))}}"></script>
-<script src="{{asset(getThemeAssets('ladda/spin.min.js', true))}}"></script>
-<script src="{{asset(getThemeAssets('ladda/ladda.min.js', true))}}"></script>
-<script src="{{asset(getThemeAssets('ladda/ladda.jquery.min.js', true))}}"></script>
 <script type="text/javascript" src="{{asset(getThemeAssets('js/article.js'))}}"></script>
 @endsection

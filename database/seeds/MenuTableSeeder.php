@@ -70,5 +70,70 @@ class MenuTableSeeder extends Seeder
 	        'active' => "admin/menu*",
 	        'description' => "显示菜单管理",
         ]);
+
+        /**
+         * -------------------------------------------------
+         * 博客管理
+         * -------------------------------------------------
+         */
+        $blogManager = Menu::create([
+            'name' => '博客管理',
+            'pid' => 0,
+            'icon' => 'fa fa-diamond',
+            'slug' => 'system.blog',
+            'url' => 'admin/article*,admin/category*,admin/tag*,admin/link*,admin/setting*',
+            'active' => 'admin/article*,admin/category*,admin/tag*,admin/link*,admin/setting*',
+            'description' => '博客管理',
+        ]);
+
+        Menu::create([
+            'name' => '文章管理',
+            'pid' => $blogManager->id,
+            'icon' => 'fa fa-paw',
+            'slug' => 'articlecontroller.index',
+            'url' => 'admin/article',
+            'active' => 'admin/article',
+            'description' => '文章管理',
+        ]);
+
+        Menu::create([
+            'name' => '分类管理',
+            'pid' => $blogManager->id,
+            'icon' => 'fa fa-list-ul',
+            'slug' => 'categorycontroller.index',
+            'url' => 'admin/category',
+            'active' => 'admin/category*',
+            'description' => '分类管理',
+        ]);
+
+        Menu::create([
+            'name' => '标签管理',
+            'pid' => $blogManager->id,
+            'icon' => 'fa fa-tags',
+            'slug' => 'tagcontroller.index',
+            'url' => 'admin/tag',
+            'active' => 'admin/tag*',
+            'description' => '标签管理',
+        ]);
+
+        Menu::create([
+            'name' => '友情链接',
+            'pid' => $blogManager->id,
+            'icon' => 'fa fa-link',
+            'slug' => 'linkcontroller.index',
+            'url' => 'admin/link',
+            'active' => 'admin/link*',
+            'description' => '友情链接',
+        ]);
+
+        Menu::create([
+            'name' => '博客配置',
+            'pid' => $blogManager->id,
+            'icon' => 'fa fa-cogs',
+            'slug' => 'settingcontroller.index',
+            'url' => 'admin/setting',
+            'active' => 'admin/setting*',
+            'description' => '博客配置',
+        ]);
     }
 }
