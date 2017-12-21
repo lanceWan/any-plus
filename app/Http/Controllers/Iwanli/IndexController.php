@@ -11,9 +11,4 @@ class IndexController extends Controller
     {
     	return view('iwanli.index');
     }
-
-    public function blog()
-    {
-    	return view('iwanli.blog');
-    }
 }

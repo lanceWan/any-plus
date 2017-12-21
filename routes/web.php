@@ -42,11 +42,11 @@ Route::namespace('Iwanli')
 	->group(function ($router)
 	{
 		$router->get('/', 'IndexController@index');
-		$router->get('blog', 'IndexController@blog');
-		// $router->middleware(['auth.admin'])->group(function ($router)
-		// {
-		
+		$router->preifx('blog')->group(function ($router)
+		{
+			$router->get('/', 'ArticleController@index');
 			
-		// });
+			
+		});
 
 	});
