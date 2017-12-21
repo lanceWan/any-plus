@@ -67,7 +67,7 @@
                   <td>{{encodeId($v->id)}}</td>
                   <td>{{$v->title}}</td>
                   <td>{{$v->view}}</td>
-                  <td>{{$v->status}}</td>
+                  <td>{!! $presenter->articleStatus($v->status) !!}</td>
                   <td>{{$v->created_at}}</td>
                   <td>{{$v->updated_at}}</td>
                   <td>{!! $presenter->getActionButtonAttribute($v->id) !!}</td>

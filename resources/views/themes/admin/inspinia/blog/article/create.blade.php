@@ -61,7 +61,7 @@
                     <select data-placeholder="请选择文章分类" class="selectpicker form-control category_id" name="category_id[]" multiple="multiple" data-live-search="true">
                       {!!$presenter->categoryList($categories)!!}
                     </select>
-                    <span class="input-group-btn"> <a href="{{ url('admin/article/category') }}" class="btn btn-primary tooltips" data-toggle="modal" data-target="#myModal" data-original-title="创建分类"  data-placement="top"><i class="fa fa-plus"></i></a> </span>
+                    <span class="input-group-btn"> <a href="{{ url('admin/article/category') }}" class="btn btn-primary tooltips" data-toggle="modal" data-target="#myModal" data-original-title="创建分类"  data-placement="top"><i class="fa fa-plus"></i> 分类</a> </span>
                   </div>
                   @if ($errors->has('category_id'))
                   <span class="help-block m-b-none text-danger">{{ $errors->first('category_id') }}</span>
@@ -93,7 +93,7 @@
                     <select title="请选择标签" class="selectpicker form-control tagsSelect" name="tags[]" multiple="multiple" data-selected-text-format="count > 4" data-live-search="true">
                       {!!$presenter->tagList($tags)!!}
                     </select>
-                    <span class="input-group-btn"> <a href="{{ url('admin/article/tag') }}" class="btn btn-primary tooltips" data-toggle="modal" data-target="#myModal" data-original-title="创建标签"  data-placement="top"><i class="fa fa-plus"></i></a> </span>
+                    <span class="input-group-btn"> <a href="{{ url('admin/article/tag') }}" class="btn btn-primary tooltips" data-toggle="modal" data-target="#myModal" data-original-title="创建标签"  data-placement="top"><i class="fa fa-plus"></i> 标签</a> </span>
                   </div>
                   @if ($errors->has('tags'))
                   <span class="help-block m-b-none text-danger">{{ $errors->first('tags') }}</span>

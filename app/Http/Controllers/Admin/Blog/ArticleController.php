@@ -96,7 +96,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->service->destroy($id);
+        return redirect()->route('article.index');
     }
 
     public function createCategory()

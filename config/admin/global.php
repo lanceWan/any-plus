@@ -20,6 +20,7 @@ return [
 		'cache_clear' => '清除缓存成功！',
 	],
 	'status' => [
-		'active' => 1
+		'active' => 1,
+		'trash' => 99,
 	]
 ];

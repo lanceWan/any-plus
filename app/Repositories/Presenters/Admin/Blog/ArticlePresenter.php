@@ -70,4 +70,20 @@ Eof;
 		}
 		return $html;
 	}
+
+	public function articleStatus($status)
+	{
+		switch ($status) {
+			case '1':
+				return '<span class="label label-info">发布</span>';
+				break;
+			case '2':
+				return '<span class="label label-warning">草稿</span>';
+				break;
+			
+			default:
+				return '<span class="label label-danger">下线</span>';
+				break;
+		}
+	}
 }

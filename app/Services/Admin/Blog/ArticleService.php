@@ -17,9 +17,12 @@ class ArticleService {
 	{
 		$name = request('name', '');
 		if ($name) {
-			ArticleRepository::pushCriteria(new FilterSearchCriteriaCriteria([['name', 'like', "%{$name}%"]]));
+			ArticleRepository::pushCriteria(new FilterSearchCriteriaCriteria([['title', 'like', "%{$name}%"]]));
 		}
-		return ArticleRepository::orderBy('id', 'desc')->paginate();
+		return ArticleRepository::scopeQuery(function ($query)
+		{
+			return $query->where('status', '<', config('admin.global.status.trash'));
+		})->orderBy('id', 'desc')->paginate();
 	}
 
 
@@ -40,6 +43,7 @@ class ArticleService {
 			$article = $this->syncArticle($request);
 			flash_info($article,config('admin.global.info.create_success'), config('admin.global.info.create_error'));
 		} catch (Exception $e) {
+			dd($e);
 			flash(config('admin.global.info.create_error'), 'danger');
 		}
 	}
@@ -98,12 +102,23 @@ class ArticleService {
 		if ($article) {
 			// 添加标签关系
 			$tags = isset($attributes['tags']) ? $attributes['tags'] : [];
-			$article->tag()->sync($attributes['tags']);
+			$article->tag()->sync($tags);
 			
 			// 添加分类关系
 			$categories = isset($attributes['category_id']) ? $attributes['category_id'] : [];
 			$article->category()->sync($categories);
 		}
 		return $article;
+	}
+
+
+	public function destroy($id)
+	{
+		try {
+			$result = ArticleRepository::update(['status' => config('admin.global.status.trash')] ,decodeId($id));
+			flash_info($result,config('admin.global.info.destroy_success'),config('admin.global.info.destroy_error'));
+		} catch (Exception $e) {
+			flash(config('admin.global.info.destroy_error'), 'danger');
+		}
 	}
 }

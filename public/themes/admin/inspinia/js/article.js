@@ -1,14 +1,7 @@
 $(function () {
-	$('.i-checks').iCheck({
-		checkboxClass: 'icheckbox_square-green',
-		radioClass: 'iradio_square-green',
-    });
+
     $('.selectpicker').selectpicker({
   		showSubtext:true
-    });
-    $('.tagsinput').tagsinput({
-        tagClass: 'label label-primary',
-        cancelConfirmKeysOnEmpty:true
     });
 
   	var editor = editormd('editor',{
@@ -24,8 +17,8 @@ $(function () {
 		imageUpload : true,
 		imageUploadURL : '/admin/article/upload'
     });
-
-    $('.col-sm-offset-2').on('click','.submit-article',function () {
-    	$('form').submit();
+    $('.tooltips').tooltip( {
+      placement : 'top',
+      html : true
     });
 });
