@@ -19,6 +19,14 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(
             'layouts.partials.'.getTheme().'-sidebar', 'App\Http\ViewComposers\MenuComposer'
         );
+
+        view()->composer(
+            'layouts.iwanli.header', 'App\Http\ViewComposers\CategoryComposer'
+        );
+
+        view()->composer(
+            'layouts.iwanli.link', 'App\Http\ViewComposers\FriendshipLinkComposer'
+        );
     }
 
     /**

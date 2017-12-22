@@ -7,6 +7,7 @@ return [
 	'cache' => [
 		'menuList' => 'menuList',
 		'categoryList' => 'categoryList',
+		'link' => 'friendship',
 	],
 	'encrypt' => true,
 	'info' => [

@@ -19,4 +19,22 @@ class ArticleController extends Controller
     	$articles = $this->service->index();
     	return view('iwanli.blog.index')->with(compact('articles'));
     }
+
+    public function show($id)
+    {
+        $article = $this->service->show($id);
+    	return view('iwanli.blog.post')->with(compact('article'));
+    }
+
+    public function categoryArticle($id)
+    {
+        $result = $this->service->categoryArticle($id);
+        return view('iwanli.blog.category')->with($result);
+    }
+
+    public function tagArticle($id)
+    {
+        $result = $this->service->tagArticle($id);
+        return view('iwanli.blog.tag')->with($result);
+    }
 }

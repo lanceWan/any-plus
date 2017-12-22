@@ -42,9 +42,12 @@ Route::namespace('Iwanli')
 	->group(function ($router)
 	{
 		$router->get('/', 'IndexController@index');
-		$router->preifx('blog')->group(function ($router)
+		Route::prefix('blog')->group(function ($router)
 		{
 			$router->get('/', 'ArticleController@index');
+			$router->get('/article/{id}.html','ArticleController@show');
+			$router->get('/category/{id}.html','ArticleController@categoryArticle');
+			$router->get('/tag/{id}.html','ArticleController@tagArticle');
 			
 			
 		});
