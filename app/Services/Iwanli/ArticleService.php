@@ -11,12 +11,17 @@ use Facades\ {
 
 class ArticleService {
 	
-	public function index()
+	public function index($search = '')
 	{
 		try {
-			return ArticleRepository::with('category')->orderBy('id', 'desc')->scopeQuery(function ($query)
+			return ArticleRepository::with('category')->orderBy('id', 'desc')->scopeQuery(function ($query) use ($search)
 			{
+				if ($search) {
+					return $query->where([ ['title', 'like', "%{$search}%"] ,'status' => config('admin.global.status.active')]);
+				}
+
 				return $query->where(['status' => config('admin.global.status.active')]);
+
 			})->paginate(6, ['id', 'title', 'banner', 'lead', 'view', 'created_at']);
 		} catch (Exception $e) {
 			return collect([]);
@@ -26,7 +31,12 @@ class ArticleService {
 	public function show($id)
 	{
 		try {
-			return ArticleRepository::with('category', 'tag')->find(decodeId($id));
+			$article =  ArticleRepository::with('category', 'tag')->find(decodeId($id));
+			// 文章访问量+1
+			if ($article) {
+				$article->increment('view');
+			}
+			return $article;
 		} catch (Exception $e) {
 			abort(500, '文章丢失在火星');
 		}

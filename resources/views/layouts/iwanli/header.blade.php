@@ -14,8 +14,7 @@
                             <i class="search-fullscreen-trigger-icon fa fa-search"></i>
                         </div>
                         <div class="search-fullscreen-overlay">
-                            <form action="http://blog.iwanli.me/search" method="post">
-                                <input type="hidden" name="_token" value="kyRF4nzJN5lrFH1nxF8ybtBkntOOeCwslY8WioIB">
+                            <form action="{{ url('search') }}">
                                 <div class="search-fullscreen-overlay-content">
                                     <div class="search-fullscreen-input-group">
                                         <input type="text" class="form-control search-fullscreen-input" name="q" placeholder="Search for ...">

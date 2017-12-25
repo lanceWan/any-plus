@@ -42,6 +42,7 @@ Route::namespace('Iwanli')
 	->group(function ($router)
 	{
 		$router->get('/', 'IndexController@index');
+		$router->get('/search', 'IndexController@search');
 		Route::prefix('blog')->group(function ($router)
 		{
 			$router->get('/', 'ArticleController@index');

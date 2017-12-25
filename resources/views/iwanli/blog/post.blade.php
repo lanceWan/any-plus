@@ -4,7 +4,7 @@
 <section class="breadcrumbs-v5">
     <div class="container text-center">
         <h1 class="breadcrumbs-v5-post">{{$article->title}}</h1>
-        <p class="breadcrumbs-v5-divider">热度：{{$article->views or '（￣▽￣）'}} ℃</p>
+        <p class="breadcrumbs-v5-divider">热度：{{$article->view or '（￣▽￣）'}} ℃</p>
     </div>
 </section>
 <div class="bg-color-sky-light">

@@ -17,7 +17,7 @@ class BlogPresenter {
 			foreach ($articles as $article) {
 				$banner = '';
                 $url = url('blog/article/'.encodeId($article->id).'.html');
-                $views = $article->views ? $article->views : '(-_-#)';
+                $views = $article->view ? $article->view : '(-_-#)';
                 if ($article->banner) {
                     $banner .= <<<Eof
                     <div class="starImg">
