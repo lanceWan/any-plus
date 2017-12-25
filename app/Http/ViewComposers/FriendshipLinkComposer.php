@@ -11,7 +11,7 @@ class FriendshipLinkComposer
     
     public function compose(View $view)
     {
-        $key = config('admin.global.cache.link');
+        $key = config('iwanli.global.cache.link');
         if (cache()->has($key)) {
 			$links = cache()->get($key);
 		}else{

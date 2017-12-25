@@ -9,6 +9,9 @@ return [
 		'categoryList' => 'categoryList',
 		'link' => 'friendship',
 	],
+	'redis' => [
+		'zset' => 'iwanli:trending_articles'
+	],
 	'encrypt' => true,
 	'info' => [
 		'create_success' => '创建成功',

@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(
             'layouts.iwanli.link', 'App\Http\ViewComposers\FriendshipLinkComposer'
         );
+
+        view()->composer(
+            'layouts.iwanli.hot', 'App\Http\ViewComposers\RecommendedArticlesComposer'
+        );
     }
 
     /**

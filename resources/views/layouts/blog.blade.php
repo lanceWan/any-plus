@@ -15,6 +15,7 @@
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('css/global.css')}}">
+    @yield('css')
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}">
 </head>
 <body class="animsition">
@@ -37,5 +38,6 @@
 <![endif]-->
 <script src="{{asset('js/all.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
+@yield('js')
 </body>
 </html>

@@ -27,20 +27,20 @@ class TagService {
 
 			if (request()->ajax()) {
 				return [
-	                'message' => config('admin.global.info.create_success'),
+	                'message' => config('iwanli.global.info.create_success'),
 	                'data' => $result,
 	            ];
 			}
 
-			flash_info($result,config('admin.global.info.create_success'), config('admin.global.info.create_error'));
+			flash_info($result,config('iwanli.global.info.create_success'), config('iwanli.global.info.create_error'));
 		} catch (Exception $e) {
 			if (request()->ajax()) {
 				return [
-	                'message' => config('admin.global.info.create_error'),
+	                'message' => config('iwanli.global.info.create_error'),
 	                'data' => [],
 	            ];
 			}
-			flash(config('admin.global.info.create_error'), 'danger');
+			flash(config('iwanli.global.info.create_error'), 'danger');
 		}
 	}
 
@@ -50,7 +50,7 @@ class TagService {
 			$tag = TagRepository::find(decodeId($id));
 			return compact('tag');
 		} catch (Exception $e) {
-			flash(config('admin.global.info.find_error'), 'danger');
+			flash(config('iwanli.global.info.find_error'), 'danger');
 		}
 	}
 
@@ -58,9 +58,9 @@ class TagService {
 	{
 		try {
 			$result = TagRepository::update($attributes, decodeId($id));
-			flash_info($result,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
+			flash_info($result,config('iwanli.global.info.edit_success'),config('iwanli.global.info.edit_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.edit_error'), 'danger');
+			flash(config('iwanli.global.info.edit_error'), 'danger');
 		}
 	}
 
@@ -68,9 +68,9 @@ class TagService {
 	{
 		try {
 			$result = TagRepository::delete(decodeId($id));
-			flash_info($result,config('admin.global.info.destroy_success'),config('admin.global.info.destroy_error'));
+			flash_info($result,config('iwanli.global.info.destroy_success'),config('iwanli.global.info.destroy_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.destroy_error'), 'danger');
+			flash(config('iwanli.global.info.destroy_error'), 'danger');
 		}
 	}
 	

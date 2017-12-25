@@ -18,10 +18,10 @@
     <em>Management System</em>
     </dt>
     <dd class="user_icon">
-    <input type="text" placeholder="账号" name="{{config('admin.global.username')}}" class="login_txtbx" value="{{old(config('admin.global.username'))}}" />
-    @if ($errors->has(config('admin.global.username')))
+    <input type="text" placeholder="账号" name="{{config('iwanli.global.username')}}" class="login_txtbx" value="{{old(config('iwanli.global.username'))}}" />
+    @if ($errors->has(config('iwanli.global.username')))
     <dt class="error">
-      <em>{{ $errors->first(config('admin.global.username')) }}</em>
+      <em>{{ $errors->first(config('iwanli.global.username')) }}</em>
     </dt>
     @endif
     </dd>

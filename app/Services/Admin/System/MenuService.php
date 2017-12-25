@@ -11,8 +11,8 @@ class MenuService {
 	public function getMenuList()
 	{
 		// 判断数据是否缓存
-		if (cache()->has(config('admin.global.cache.menuList'))) {
-			return cache()->get(config('admin.global.cache.menuList'));
+		if (cache()->has(config('iwanli.global.cache.menuList'))) {
+			return cache()->get(config('iwanli.global.cache.menuList'));
 		}
 		return $this->sortMenuSetCache();
 	}
@@ -58,7 +58,7 @@ class MenuService {
 				}
 			}
 			// 缓存菜单数据
-			cache()->forever(config('admin.global.cache.menuList'),$menuList);
+			cache()->forever(config('iwanli.global.cache.menuList'),$menuList);
 			return $menuList;
 			
 		}
@@ -88,12 +88,12 @@ class MenuService {
 			}
 			return [
 				'status' => $result,
-				'message' => $result ? config('admin.global.info.create_success'):config('admin.global.info.create_error'),
+				'message' => $result ? config('iwanli.global.info.create_success'):config('iwanli.global.info.create_error'),
 			];
 		} catch (Exception $e) {
 			return [
 				'status' => false,
-				'message' => config('admin.global.info.create_error'),
+				'message' => config('iwanli.global.info.create_error'),
 			];
 		}
 	}
@@ -130,12 +130,12 @@ class MenuService {
 			}
 			return [
 				'status' => $isUpdate,
-				'message' => $isUpdate ? config('admin.global.info.edit_success'):config('admin.global.info.edit_error'),
+				'message' => $isUpdate ? config('iwanli.global.info.edit_success'):config('iwanli.global.info.edit_error'),
 			];
 		} catch (Exception $e) {
 			return [
 				'status' => false,
-				'message' => config('admin.global.info.edit_error'),
+				'message' => config('iwanli.global.info.edit_error'),
 			];
 		}
 	}
@@ -148,16 +148,16 @@ class MenuService {
 			if ($result) {
 				$this->sortMenuSetCache();
 			}
-			flash_info($result,config('admin.global.info.destroy_success'),config('admin.global.info.destroy_error'));
+			flash_info($result,config('iwanli.global.info.destroy_success'),config('iwanli.global.info.destroy_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.destroy_error'), 'danger');
+			flash(config('iwanli.global.info.destroy_error'), 'danger');
 		}
 	}
 
 	public function cacheClear()
 	{
-		cache()->forget(config('admin.global.cache.menuList'));
-		flash(config('admin.global.info.cache_clear'), 'success')->important();
+		cache()->forget(config('iwanli.global.cache.menuList'));
+		flash(config('iwanli.global.info.cache_clear'), 'success')->important();
 	}
 	
 }

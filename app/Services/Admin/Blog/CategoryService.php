@@ -12,8 +12,8 @@ class CategoryService {
 	public function getCategoryList()
 	{
 		// 判断数据是否缓存
-		if (cache()->has(config('admin.global.cache.categoryList'))) {
-			return cache()->get(config('admin.global.cache.categoryList'));
+		if (cache()->has(config('iwanli.global.cache.categoryList'))) {
+			return cache()->get(config('iwanli.global.cache.categoryList'));
 		}
 		return $this->sortCategorySetCache();
 	}
@@ -49,7 +49,7 @@ class CategoryService {
 	 */
 	private function sortCategorySetCache()
 	{
-		$categories = CategoryRepository::orderBy('sort', 'desc')->findWhere(['type' => config('admin.global.status.active', 1)]);
+		$categories = CategoryRepository::orderBy('sort', 'desc')->findWhere(['type' => config('iwanli.global.status.active', 1)]);
 		if ($categories->isNotEmpty()) {
 			$categoryList = $this->sortCategory($categories->toArray());
 			foreach ($categoryList as $key => &$v) {
@@ -59,7 +59,7 @@ class CategoryService {
 				}
 			}
 			// 缓存菜单数据
-			cache()->forever(config('admin.global.cache.categoryList'),$categoryList);
+			cache()->forever(config('iwanli.global.cache.categoryList'),$categoryList);
 			return $categoryList;
 			
 		}
@@ -88,12 +88,12 @@ class CategoryService {
 			}
 			return [
 				'data' => $result,
-				'message' => $result ? config('admin.global.info.create_success'):config('admin.global.info.create_error'),
+				'message' => $result ? config('iwanli.global.info.create_success'):config('iwanli.global.info.create_error'),
 			];
 		} catch (Exception $e) {
 			return [
 				'data' => false,
-				'message' => config('admin.global.info.create_error'),
+				'message' => config('iwanli.global.info.create_error'),
 			];
 		}
 	}
@@ -128,12 +128,12 @@ class CategoryService {
 			}
 			return [
 				'status' => $isUpdate,
-				'message' => $isUpdate ? config('admin.global.info.edit_success'):config('admin.global.info.edit_error'),
+				'message' => $isUpdate ? config('iwanli.global.info.edit_success'):config('iwanli.global.info.edit_error'),
 			];
 		} catch (Exception $e) {
 			return [
 				'status' => false,
-				'message' => config('admin.global.info.edit_error'),
+				'message' => config('iwanli.global.info.edit_error'),
 			];
 		}
 	}
@@ -146,16 +146,16 @@ class CategoryService {
 			if ($result) {
 				$this->sortCategorySetCache();
 			}
-			flash_info($result,config('admin.global.info.destroy_success'),config('admin.global.info.destroy_error'));
+			flash_info($result,config('iwanli.global.info.destroy_success'),config('iwanli.global.info.destroy_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.destroy_error'), 'danger');
+			flash(config('iwanli.global.info.destroy_error'), 'danger');
 		}
 	}
 
 	public function cacheClear()
 	{
-		cache()->forget(config('admin.global.cache.categoryList'));
-		flash(config('admin.global.info.cache_clear'), 'success')->important();
+		cache()->forget(config('iwanli.global.cache.categoryList'));
+		flash(config('iwanli.global.info.cache_clear'), 'success')->important();
 	}
 	
 }

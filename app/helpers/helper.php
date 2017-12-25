@@ -18,7 +18,7 @@ if(!function_exists('getTheme')){
 		if (cache()->has('theme')) {
 			return cache('theme');
 		}
-		$theme = config('admin.global.theme');
+		$theme = config('iwanli.global.theme');
 		cache()->forever('theme', $theme);
 		return $theme;
 	}
@@ -102,7 +102,7 @@ if(!function_exists('encodeId')){
 			$connection = 'main';
 		}
 		// 获取加密配置
-		if(config('admin.global.encrypt')){
+		if(config('iwanli.global.encrypt')){
 			return Hashids::connection($connection)->encode($id);
 		}
 		return $id;
@@ -117,10 +117,10 @@ if(!function_exists('decodeId')){
 		}
 
 		// 获取加密配置
-		$settings = config('admin.global.encrypt');
+		$settings = config('iwanli.global.encrypt');
 		// 判断是否开启加密设置
 		
-		if(config('admin.global.encrypt')){
+		if(config('iwanli.global.encrypt')){
 			$id = Hashids::connection($connection)->decode($id);
 			if ($id) {
 				return $type ? $id:$id[0];

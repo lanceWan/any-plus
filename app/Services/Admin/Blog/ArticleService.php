@@ -1,12 +1,14 @@
 <?php
 namespace App\Services\Admin\Blog;
 
+use PRedis;
 use Exception;
 
 use Facades\ {
 	App\Repositories\Eloquent\TagRepository,
 	App\Repositories\Eloquent\ArticleRepository,
-	App\Repositories\Eloquent\CategoryRepository
+	App\Repositories\Eloquent\CategoryRepository,
+	App\Repositories\Eloquent\RecommandRepository
 };
 
 use App\Repositories\Criteria\FilterSearchCriteriaCriteria;
@@ -21,7 +23,7 @@ class ArticleService {
 		}
 		return ArticleRepository::scopeQuery(function ($query)
 		{
-			return $query->where('status', '<', config('admin.global.status.trash'));
+			return $query->where('status', '<', config('iwanli.global.status.trash'));
 		})->orderBy('id', 'desc')->paginate();
 	}
 
@@ -41,10 +43,9 @@ class ArticleService {
 	{
 		try {
 			$article = $this->syncArticle($request);
-			flash_info($article,config('admin.global.info.create_success'), config('admin.global.info.create_error'));
+			flash_info($article,config('iwanli.global.info.create_success'), config('iwanli.global.info.create_error'));
 		} catch (Exception $e) {
-			dd($e);
-			flash(config('admin.global.info.create_error'), 'danger');
+			flash(config('iwanli.global.info.create_error'), 'danger');
 		}
 	}
 
@@ -65,7 +66,7 @@ class ArticleService {
 			$tags = TagRepository::all(['id', 'name'])->toArray();
 			return compact('article', 'categories', 'tags');
 		} catch (Exception $e) {
-			flash(config('admin.global.info.find_error'), 'danger');
+			flash(config('iwanli.global.info.find_error'), 'danger');
 		}
 	}
 
@@ -73,9 +74,9 @@ class ArticleService {
 	{
 		try {
 			$article = $this->syncArticle($request, $id);
-			flash_info($article,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
+			flash_info($article,config('iwanli.global.info.edit_success'),config('iwanli.global.info.edit_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.edit_error'), 'danger');
+			flash(config('iwanli.global.info.edit_error'), 'danger');
 		}
 	}
 
@@ -95,8 +96,39 @@ class ArticleService {
 		$attributes['content_html'] = $attributes['editor-html-code'];
 		if ($id) {
 			$article = ArticleRepository::update($attributes, decodeId($id));
+			// 更新文章到推荐表
+			if ($article && env('CACHE_DRIVER', 'file') == 'file') {
+				RecommandRepository::updateOrCreate([
+					'article_id' => $article->id,
+					'push_at' => $article->created_at->toDateTimeString(),
+					'score' => $article->created_at->timestamp,
+				],[
+					'title' => $article->title,
+				]);
+			}else{
+				PRedis::zadd(config('iwanli.global.redis.zset'), $article->created_at->timestamp, collect([
+					'article_id' => $article->id,
+					'title' => $article->title,
+					'push_at' => $article->created_at->toDateTimeString(),
+				]));
+			}
 		}else{
 			$article = ArticleRepository::create($attributes);
+			// 添加文章到推荐表
+			if ($article && env('CACHE_DRIVER', 'file') == 'file') {
+				RecommandRepository::create([
+					'article_id' => $article->id,
+					'title' => $article->title,
+					'push_at' => $article->created_at->toDateTimeString(),
+					'score' => $article->created_at->timestamp,
+				]);
+			}else{
+				PRedis::zadd(config('iwanli.global.redis.zset'), $article->created_at->timestamp, collect([
+					'article_id' => $article->id,
+					'title' => $article->title,
+					'push_at' => $article->created_at->toDateTimeString(),
+				]));
+			}
 		}
 
 		if ($article) {
@@ -115,10 +147,16 @@ class ArticleService {
 	public function destroy($id)
 	{
 		try {
-			$result = ArticleRepository::update(['status' => config('admin.global.status.trash')] ,decodeId($id));
-			flash_info($result,config('admin.global.info.destroy_success'),config('admin.global.info.destroy_error'));
+			$id = decodeId($id);
+
+			$result = ArticleRepository::update(['status' => config('iwanli.global.status.trash')] ,$id);
+			RecommandRepository::deleteWhere([
+				'article_id' => $id
+			]);
+			
+			flash_info($result,config('iwanli.global.info.destroy_success'),config('iwanli.global.info.destroy_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.destroy_error'), 'danger');
+			flash(config('iwanli.global.info.destroy_error'), 'danger');
 		}
 	}
 }

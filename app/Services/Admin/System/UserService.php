@@ -46,9 +46,9 @@ class UserService {
 				}
 				cacheClear();
 			}
-			flash_info($result,config('admin.global.info.create_success'), config('admin.global.info.create_error'));
+			flash_info($result,config('iwanli.global.info.create_success'), config('iwanli.global.info.create_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.create_error'), 'danger');
+			flash(config('iwanli.global.info.create_error'), 'danger');
 		}
 	}
 
@@ -95,9 +95,9 @@ class UserService {
 				}
 				cacheClear();
 			}
-			flash_info($result,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
+			flash_info($result,config('iwanli.global.info.edit_success'),config('iwanli.global.info.edit_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.edit_error'), 'danger');
+			flash(config('iwanli.global.info.edit_error'), 'danger');
 		}
 	}
 
@@ -106,9 +106,9 @@ class UserService {
 		try {
 			$result = UserRepository::delete(decodeId($id));
 			cacheClear();
-			flash_info($result,config('admin.global.info.destroy_success'),config('admin.global.info.destroy_error'));
+			flash_info($result,config('iwanli.global.info.destroy_success'),config('iwanli.global.info.destroy_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.destroy_error'), 'danger');
+			flash(config('iwanli.global.info.destroy_error'), 'danger');
 		}
 	}
 

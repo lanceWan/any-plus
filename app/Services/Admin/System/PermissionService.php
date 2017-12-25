@@ -24,9 +24,9 @@ class PermissionService {
 	{
 		try {
 			$result = PermissionRepository::create($attributes);
-			flash_info($result,config('admin.global.info.create_success'), config('admin.global.info.create_error'));
+			flash_info($result,config('iwanli.global.info.create_success'), config('iwanli.global.info.create_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.create_error'), 'danger');
+			flash(config('iwanli.global.info.create_error'), 'danger');
 		}
 	}
 
@@ -36,7 +36,7 @@ class PermissionService {
 			$permission = PermissionRepository::find(decodeId($id));
 			return compact('permission');
 		} catch (Exception $e) {
-			flash(config('admin.global.info.find_error'), 'danger');
+			flash(config('iwanli.global.info.find_error'), 'danger');
 		}
 	}
 
@@ -44,9 +44,9 @@ class PermissionService {
 	{
 		try {
 			$result = PermissionRepository::update($attributes, decodeId($id));
-			flash_info($result,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
+			flash_info($result,config('iwanli.global.info.edit_success'),config('iwanli.global.info.edit_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.edit_error'), 'danger');
+			flash(config('iwanli.global.info.edit_error'), 'danger');
 		}
 	}
 
@@ -54,9 +54,9 @@ class PermissionService {
 	{
 		try {
 			$result = PermissionRepository::delete(decodeId($id));
-			flash_info($result,config('admin.global.info.destroy_success'),config('admin.global.info.destroy_error'));
+			flash_info($result,config('iwanli.global.info.destroy_success'),config('iwanli.global.info.destroy_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.destroy_error'), 'danger');
+			flash(config('iwanli.global.info.destroy_error'), 'danger');
 		}
 	}
 	

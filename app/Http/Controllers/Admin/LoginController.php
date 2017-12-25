@@ -39,7 +39,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        return config('admin.global.username');
+        return config('iwanli.global.username');
     }
 
     public function showLoginForm()

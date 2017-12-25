@@ -34,9 +34,9 @@ class RoleService {
 				// 更新角色权限关系
                 $result->permissions()->sync($attributes['permission']);
 			}
-			flash_info($result,config('admin.global.info.create_success'), config('admin.global.info.create_error'));
+			flash_info($result,config('iwanli.global.info.create_success'), config('iwanli.global.info.create_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.create_error'), 'danger');
+			flash(config('iwanli.global.info.create_error'), 'danger');
 		}
 	}
 
@@ -56,7 +56,7 @@ class RoleService {
 			$permissions = PermissionRepository::getAllPermissions();
 			return compact('role', 'permissions');
 		} catch (Exception $e) {
-			flash(config('admin.global.info.find_error'), 'danger');
+			flash(config('iwanli.global.info.find_error'), 'danger');
 			return redirect()->route('role.index');
 		}
 	}
@@ -74,9 +74,9 @@ class RoleService {
 				}
 				cacheClear();
 			}
-			flash_info($result,config('admin.global.info.edit_success'),config('admin.global.info.edit_error'));
+			flash_info($result,config('iwanli.global.info.edit_success'),config('iwanli.global.info.edit_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.edit_error'), 'danger');
+			flash(config('iwanli.global.info.edit_error'), 'danger');
 		}
 	}
 
@@ -85,9 +85,9 @@ class RoleService {
 		try {
 			$result = RoleRepository::delete(decodeId($id));
 			cacheClear();
-			flash_info($result,config('admin.global.info.destroy_success'),config('admin.global.info.destroy_error'));
+			flash_info($result,config('iwanli.global.info.destroy_success'),config('iwanli.global.info.destroy_error'));
 		} catch (Exception $e) {
-			flash(config('admin.global.info.destroy_error'), 'danger');
+			flash(config('iwanli.global.info.destroy_error'), 'danger');
 		}
 	}
 	

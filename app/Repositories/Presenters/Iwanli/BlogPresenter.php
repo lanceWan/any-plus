@@ -190,4 +190,32 @@ Eof;
         return $str;
 
     }
+
+    /**
+     * 推荐文章
+     * @author 晚黎
+     * @date   2017-12-25
+     * @param  [type]     $recommendedArticles [description]
+     * @return [type]                          [description]
+     */
+    public function recommendedArticleList($recommendedArticles)
+    {
+        $str = '';
+        if ($recommendedArticles) {
+            foreach ($recommendedArticles as $article) {
+                if (env('CACHE_DRIVER', 'file') == 'redis') {
+                    $article = json_decode($article,true);
+                }
+                $url = url('blog/article/'.encodeId($article['article_id']).'.html');
+                $str .= <<<Eof
+                <li class="timeline-v2-list-item">
+                    <i class="timeline-v2-badge-icon radius-circle fa fa-calendar"></i>
+                    <small class="timeline-v2-news-date">{$article['push_at']}</small>
+                    <h5 class="timeline-v2-news-title"><a href="{$url}">{$article['title']}</a></h5>
+                </li>
+Eof;
+            }
+        }
+        return $str;
+    }
 }

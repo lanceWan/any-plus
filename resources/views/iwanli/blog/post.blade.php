@@ -1,4 +1,7 @@
 @extends('layouts.blog')
+@section('css')
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+@endsection
 @section('content')
 @inject('presenter', 'App\Repositories\Presenters\Iwanli\BlogPresenter')
 <section class="breadcrumbs-v5">
@@ -19,7 +22,7 @@
                         {!! $article->content_html !!}
 
                         <hr>
-                        <span class="blog-single-post-source">Source: <a href="{{ request()->fullUrl()}}">{{ request()->fullUrl()}}</a></span>
+                        <span class="blog-single-post-source">Source: <a href="{{ request()->fullUrl() }}">{{ request()->fullUrl() }}</a></span>
                     </div>
 
                     <div class="bg-color-white">
@@ -27,6 +30,7 @@
                             <div class="heading-v1 text-center margin-b-30" style="padding: 0 15px">
                                 <h2 class="heading-v1-title">Leave a comment</h2>
                             </div>
+                            <div id="container"></div>
                         </div>
                     </div>
                 </article>
@@ -48,10 +52,27 @@
                         </ul>
                     </div>
                 </div>
+                @include('layouts.iwanli.hot', ['presenter' => $presenter])
+                
                 @include('layouts.iwanli.link', ['presenter' => $presenter])
             </div>
 
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+      id: '{{ request()->fullUrl() }}',
+      owner: '{{ env('GITMENT_OWNER') }}',
+      repo: '{{ env('GITMENT_REPO') }}',
+      oauth: {
+        client_id: '{{ env('GITMENT_CLIENT_ID') }}',
+        client_secret: '{{ env('GITMENT_CLIENT_SECRET') }}',
+      },
+    })
+    gitment.render('container')
+</script>
 @endsection
